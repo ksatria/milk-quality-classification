@@ -24,7 +24,6 @@ def user_input_features():
     features = pd.DataFrame(data, index=[0])
     return features
 
-
 def predict(features):
     model = joblib.load("model_milk_quality.pkl")
     hasil = model.predict(features)
@@ -39,10 +38,15 @@ def run():
     features = user_input_features()
     result = predict(features)
 
+    kamus = {
+        'low': 'rendah',
+        'medium': 'sedang',
+        'high': 'tinggi'
+    }
+
     if st.button("Prediksi"):
         st.subheader("Hasil Prediksi:")
-        st.write(f"Kualitas Susu: {result[0]}")
-
+        st.write(f"Kualitas Susu: {kamus[result[0]]}")
 
 if __name__ == "__main__":
     run()
